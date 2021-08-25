@@ -1,8 +1,12 @@
 """
 Read data from Google BigQuery
 """
+from logging import getLogger
+
 import google.cloud.bigquery as bigquery
 from pandas.core.frame import DataFrame
+
+logger = getLogger(__name__)
 
 
 class BigQueryClient:
@@ -23,23 +27,17 @@ class BigQueryClient:
 
         return self._bqclient
 
-    def query(self, query_string: str) -> DataFrame:
+    def query(
+        self, query_string: str, dest_table_id: str, allow_large_results: bool = False
+    ) -> DataFrame:
         """
-        Execute query returning dataframe with results
+        Executes query loading into a destination table.
         """
+        job_config = bigquery.QueryJobConfig(destination=dest_table_id)
 
-        dataframe = self.bqclient.query(query_string).result().to_dataframe()
+        result = self.bqclient.query(
+            query_string, job_config=job_config, allow_large_results=allow_large_results
+        ).result()
 
-        return dataframe
-
-    def load(
-        self, table_id: str, job_config: bigquery.LoadJobConfig, dataframe: DataFrame
-    ) -> None:
-        """
-        Load data on BigQuery table
-        """
-
-        job = self.bqclient.load_table_from_dataframe(
-            dataframe, table_id, job_config=job_config
-        )
-        job.result()  # Wait for the job to complete.
+        logger.info(f"Query results loaded to the table {dest_table_id}")
+        return result
