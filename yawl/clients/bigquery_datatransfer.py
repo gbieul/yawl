@@ -16,17 +16,14 @@ class DestTableNameTemplate(Enum):
 
 
 class BigQueryDataTransfer:
-
-    _bq_datatransfer_client = None
-    _parent = None
-
     def __init__(self, project_id: str, service_account: str) -> None:
         self._project_id = project_id
         self._service_account = service_account
+        self._bq_datatransfer_client = None
 
     @property
     def bq_datatransfer_client(self):
-        if self._bq_datatransfer_client is None:
+        if not self._bq_datatransfer_client:
             self._bq_datatransfer_client = (
                 bigquery_datatransfer.DataTransferServiceClient()
             )

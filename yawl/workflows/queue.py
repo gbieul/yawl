@@ -2,7 +2,6 @@ from contextlib import contextmanager
 from typing import Iterator, List
 
 from yawl.workflows.base import WorkFlowStep
-from yawl.workflows.bigquery_workflow import BigQueryWorkflowStep
 
 
 class Queue:
@@ -19,7 +18,7 @@ class Queue:
     def __init__(self) -> None:
         self.__commands: List[WorkFlowStep] = []
 
-    def add(self, command: BigQueryWorkflowStep) -> "Queue":
+    def add(self, command: WorkFlowStep) -> "Queue":
         if self.__commands:
             command.upstream = self.__commands[-1].dest_table  # type: ignore
 

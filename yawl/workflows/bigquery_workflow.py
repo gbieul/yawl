@@ -1,13 +1,15 @@
 """
 Module used for BigQuery interactions.
 """
+import logging
 import re
 from typing import Optional
 
 from yawl.clients.bigquery_datatransfer import BigQueryDataTransfer, DestTableNameTemplate
 from yawl.shared.constants import SERVICE_ACCOUNT_EMAIL
 from yawl.workflows.base import WorkFlowStep
-from yawl.workflows.queue import queue
+
+logger = logging.getLogger(__name__)
 
 
 class BigQueryWorkflowStep(WorkFlowStep):
@@ -63,26 +65,9 @@ class BigQueryWorkflowStep(WorkFlowStep):
             write_disposition="WRITE_TRUNCATE",
             partitioning_field="",
         )
-        print(
+        logger.info(
             (
                 f"Executing step of upstream {self.upstream}"
                 f" and destination {self.dest_table}"
             )
         )
-
-
-if __name__ == "__main__":
-    step_1 = BigQueryWorkflowStep(
-        sql="file_1.sql",
-        dest_table="project.dataset.table_1",
-        squeduled_query_name="Query 1",
-        schedule="Every Mon-Fri 09:00",
-    )
-    step_2 = BigQueryWorkflowStep(
-        sql="file_2.sql",
-        dest_table="project.dataset.table_2",
-        squeduled_query_name="Query 2",
-        schedule="Every Mon-Fri 10:00",
-    )
-    with queue() as q:
-        q.add(step_1).add(step_2).process()
