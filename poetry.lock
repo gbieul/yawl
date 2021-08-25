@@ -244,6 +244,22 @@ pandas = ["pandas (>=0.23.0)", "pyarrow (>=1.0.0,<3.0dev)"]
 tqdm = ["tqdm (>=4.7.4,<5.0.0dev)"]
 
 [[package]]
+name = "google-cloud-bigquery-datatransfer"
+version = "3.3.1"
+description = "BigQuery Data Transfer API client library"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+google-api-core = {version = ">=1.26.0,<3.0.0dev", extras = ["grpc"]}
+packaging = ">=14.3"
+proto-plus = ">=1.15.0"
+
+[package.extras]
+libcst = ["libcst (>=0.2.5)"]
+
+[[package]]
 name = "google-cloud-bigquery-storage"
 version = "2.0.0"
 description = "BigQuery Storage API API client library"
@@ -811,7 +827,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1,<4.0"
-content-hash = "6d13e3e4960b433379d72048b12bc548f750399746b4cf8fed73a74ff34fd379"
+content-hash = "eabd1fd9594074840359b704e7ee99ad0e175e936ab9bac2b331c8cef5b08749"
 
 [metadata.files]
 appdirs = [
@@ -978,6 +994,10 @@ google-auth = [
 google-cloud-bigquery = [
     {file = "google-cloud-bigquery-2.6.1.tar.gz", hash = "sha256:1f99fd0c0c5bde999e056a1be666e5d5bbf392f62c9e730dfcbaf6e8408d44ef"},
     {file = "google_cloud_bigquery-2.6.1-py2.py3-none-any.whl", hash = "sha256:4b4593c45e78ee5d2e55b3aa7156839e8fbc4c3b9ed2d70715c820dce48cdf97"},
+]
+google-cloud-bigquery-datatransfer = [
+    {file = "google-cloud-bigquery-datatransfer-3.3.1.tar.gz", hash = "sha256:a0292db7cc0060a7b0cfa19ae26206572d085a89d74ea42f68ee4c4f83241cc6"},
+    {file = "google_cloud_bigquery_datatransfer-3.3.1-py2.py3-none-any.whl", hash = "sha256:a83578f3c60356b95500aa1a8167989877890a0f08a04412d89f1364e96c96fa"},
 ]
 google-cloud-bigquery-storage = [
     {file = "google-cloud-bigquery-storage-2.0.0.tar.gz", hash = "sha256:cebeaf1da7b7e4e3fd95e4a51a6d9c26dc49027d5191ba1fe894d9e1ef259592"},
