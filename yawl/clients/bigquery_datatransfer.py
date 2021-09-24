@@ -33,6 +33,23 @@ class BigQueryDataTransfer:
 
         return self._bq_datatransfer_client
 
+    def send_transfer_config_request(
+        self,
+        query_str: str,
+        dest_dataset_id: str,
+        dest_table_id: str,
+        squeduled_query_name: str,
+        schedule: str,
+        dest_table_name_template: DestTableNameTemplate = DestTableNameTemplate.no_template.value,  # noqa: E501
+        write_disposition: str = "WRITE_TRUNCATE",
+        partitioning_field: str = "",
+    ):
+
+        if self.is_already_scheduled_query(self, squeduled_query_name):
+            pass  # self._update_transfer_config
+        else:
+            self.create_transfer_config()
+
     def create_transfer_config(
         self,
         query_str: str,
@@ -65,3 +82,11 @@ class BigQueryDataTransfer:
             )
         )
         logger.info(f"Created scheduled query {transfer_config_request.name}")
+
+    def is_already_scheduled_query(self, query_display_name: str):
+        """
+        Returns true if a query display name is already present on the project
+        """
+
+        configs = self.bq_datatransfer_client.list_transfer_configs(parent=self._parent)
+        return query_display_name in [config.display_name for config in configs]

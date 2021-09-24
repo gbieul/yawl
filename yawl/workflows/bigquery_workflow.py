@@ -55,7 +55,7 @@ class BigQueryWorkflowStep(WorkFlowStep):
         if self.__sql.endswith(".sql"):
             self.get_sql_file()
 
-        self.__client.create_transfer_config(
+        self.__client.send_transfer_config_request(
             query_str=self.__sql,
             dest_dataset_id=self.__dataset,
             dest_table_id=self.dest_table,
