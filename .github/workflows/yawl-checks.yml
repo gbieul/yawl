@@ -28,4 +28,9 @@ jobs:
           poetry install
       - name: Execute checks
         run: |
-          make checks
+          poetry run black --check yawl tests
+          poetry run mypy yawl tests
+          poetry run flake8 .
+          poetry run pytest -n 4
+          poetry run poetry check
+          poetry run safety check --full-report
