@@ -5,10 +5,7 @@ import logging
 import re
 from typing import Optional
 
-from yawl.clients.bigquery_datatransfer import (
-    BigQueryDataTransfer,
-    DestTableNameTemplate,
-)
+from yawl.clients.bigquery_datatransfer import BigQueryDataTransfer, DestTableNameTemplate
 from yawl.shared.constants import SERVICE_ACCOUNT_EMAIL
 from yawl.workflows.base import WorkFlowStep
 
