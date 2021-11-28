@@ -1,8 +1,22 @@
 [tool.poetry]
 name = "yawl"
 version = "0.1.0"
-description = "Yet Another WorkLoad - for BigQuery"
-authors = ["Gabriel Benvegmi <gabriel.benvegmi[at]outlook.com>"]
+description = "Yet Another WorkLoad - manage scheduled queries [currently] on BigQuery"
+authors = ["Gabriel Benvegmi <gbieul_benveg@outlook.com>"]
+
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/johnfraney/flake8-markdown"
+repository = "https://github.com/johnfraney/flake8-markdown"
+keywords = ["bigquery", "workloads", "orchestration"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4.0"
@@ -20,6 +34,19 @@ safety = "^1.10.3"
 mypy = "^0.910"
 pytest = "^6.2.4"
 pytest-cov = "^2.12.1"
+Sphinx = "^4.2.0"
+ipykernel = "^6.5.0"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 90
+known_first_party = "yawl"
+#include_trailing_comma = true
+#use_parentheses = true
+
+[tool.black]
+line-length = 90
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
