@@ -1,4 +1,4 @@
-name: YAWL checks
+name: YAWL build
 
 on:
   push:
