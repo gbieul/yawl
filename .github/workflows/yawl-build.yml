@@ -3,7 +3,9 @@ name: YAWL checks
 on:
   push:
     branches:
-      - master
+      - feature/**
+      - fix/**
+      - hotfix/**
   pull_request:
     branches:
       - master
@@ -14,17 +16,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+      - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
+      - uses: Gr1N/setup-poetry@v7
+        with:
+          poetry-version: 1.1.7
       - name: Install dependencies
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
-          echo "export PATH=$PATH:$HOME/.local/bin" > ~/.bash_profile && source ~/.bash_profile
-          source "$HOME/.poetry/env"
-          poetry config virtualenvs.in-project true
           poetry install
       - name: Execute checks
         run: |
-          make checks
+          poetry run black --check yawl tests
+          poetry run mypy yawl tests
+          poetry run flake8 .
+          poetry run pytest -n 4
+          poetry run poetry check
+          poetry run safety check --full-report
