@@ -6,8 +6,8 @@ authors = ["Gabriel Benvegmi <gbieul_benveg@outlook.com>"]
 
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/johnfraney/flake8-markdown"
-repository = "https://github.com/johnfraney/flake8-markdown"
+homepage = "https://github.com/gbieul/yawl"
+repository = "https://github.com/gbieul/yawl"
 keywords = ["bigquery", "workloads", "orchestration"]
 classifiers = [
     "Development Status :: 3 - Alpha",
