@@ -21,7 +21,7 @@ jobs:
         run: |
           poetry install
       - name: Publish
-        with:
+        env:
           pypi_password: ${{ secrets.PYPI_API_KEY }}
           pypi_username: ${{ secrets.PYPI_USERNAME }}
         run: |
