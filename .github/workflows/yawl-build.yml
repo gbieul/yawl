@@ -3,15 +3,10 @@ name: YAWL build
 on:
   push:
     branches:
-      - feature/**
-      - fix/**
-      - hotfix/**
-  pull_request:
-    branches:
       - master
 
 jobs:
-  checks:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,11 +20,12 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-      - name: Execute checks
+      - name: Publish
+        with:
+          pypi_password: ${{ secrets.PYPI_API_KEY }}
+          pypi_username: ${{ secrets.PYPI_USERNAME }}
         run: |
-          poetry run black --check yawl tests
-          poetry run mypy yawl tests
-          poetry run flake8 .
-          poetry run pytest -n 4
-          poetry run poetry check
-          poetry run safety check --full-report
+          poetry publish \
+          --build \
+          --password $pypi_password \
+          --username $pypi_username
