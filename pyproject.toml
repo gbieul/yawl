@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yawl"
-version = "0.1.0"
+version = "0.1.1"
 description = "Yet Another WorkLoad - manage scheduled queries [currently] on BigQuery"
 authors = ["Gabriel Benvegmi <gbieul_benveg@outlook.com>"]
 
