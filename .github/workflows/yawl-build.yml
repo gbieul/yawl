@@ -1,11 +1,6 @@
 name: YAWL build
 
 on:
-  push:
-    branches:
-      - feature/**
-      - fix/**
-      - hotfix/**
   pull_request:
     branches:
       - master
@@ -26,10 +21,11 @@ jobs:
         run: |
           poetry install
       - name: Execute checks
+        env:
+          PYPI_PASSWORD: ${{ secrets.PYPI_API_KEY }}
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
         run: |
-          poetry run black --check yawl tests
-          poetry run mypy yawl tests
-          poetry run flake8 .
-          poetry run pytest -n 4
-          poetry run poetry check
-          poetry run safety check --full-report
+          poetry publish \
+          --build \
+          --password $PYPI_PASSWORD \
+          --username $PYPI_USERNAME
